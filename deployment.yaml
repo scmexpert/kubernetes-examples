@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-deployment
+  labels:
+    version: deployment-v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      version: app-v1
+    matchExpressions:
+      - {key: version,operator: In,values: [app-v1]}
+  template:
+    metadata:
+      name: deploy-template
+      labels:
+        version: app-v1
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:stable
