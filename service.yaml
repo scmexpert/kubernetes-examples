@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    name: nginx-sample
+  type: NodePort
+  externalIPs:
+    - 192.168.56.101
+    - 192.168.56.102
+    - 192.168.56.103
+  ports:
+    - name: nginx-port
+      port: 8090
+      targetPort: 80
+      nodePort: 30400
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    name: nginx-sample
+spec:
+  containers:
+    - name: nginx
+      image: nginx:stable
+      ports:
+        - containerPort: 80
