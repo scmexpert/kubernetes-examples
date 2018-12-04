@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-roll-update
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      version: v1
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 3
+  template:
+    metadata:
+      name: nginx
+      labels:
+        version: v1
+    spec:
+      containers:
+        - name: nginx
+          image: schoolofdevops/vote:v5
+          ports:
+            - containerPort: 80
+              protocol: TCP
