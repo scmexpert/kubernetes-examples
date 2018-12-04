@@ -4,7 +4,7 @@ metadata:
   name: nginx-service
 spec:
   selector:
-    name: nginx-sample
+    version: v1
   type: NodePort
   externalIPs:
     - 192.168.56.101
